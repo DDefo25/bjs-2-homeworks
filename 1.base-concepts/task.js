@@ -30,14 +30,13 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
   let mortgageMonths = (dateEnd.getMonth() - dateNow.getMonth()) + (dateEnd.getFullYear() - dateNow.getFullYear()) * 12;
 
-  console.log(mortgageMonths); 
+  let percentMonthly = (percent / 100) / 12;
 
+  let monthlyPayments = mortgageAmount * (percentMonthly + (percentMonthly / (Math.pow((1 + percentMonthly), mortgageMonths) - 1)));
 
-  return totalAmount;
+  let totalMortgageAmount = (monthlyPayments * mortgageMonths).toFixed(2);
+
+  return totalMortgageAmount;
 }
 
-console.log(calculateTotalMortgage(111, 1, 2, '2025.07.15'))
-
-// let date1 = new Date('2020.df.20')
-// console.log(date1)
-// console.log(Number.isNaN(Number(dateSplited)))
+console.log(calculateTotalMortgage(15, 0, 10000, '2025.07.2'))
