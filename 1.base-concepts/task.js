@@ -13,17 +13,16 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount;
   let dateEnd = new Date(date);
   let dateNow = new Date;
 
   function errorOfTypeMessage(obj, value) {
-    return `Параметр ${obj} содержит неправильное значение ${value}`;
+    return `Параметр "${obj}" содержит неправильное значение "${value}"`;
   }
 
-  if (Number.isNaN(Number(percent))) return errorOfTypeMessage('percent', percent);
-  if (Number.isNaN(Number(contribution))) return errorOfTypeMessage('contribution', contribution);
-  if (Number.isNaN(Number(amount))) return errorOfTypeMessage('amount', amount);
+  if (Number.isNaN(Number(percent))) return errorOfTypeMessage('Процентная ставка', percent);
+  if (Number.isNaN(Number(contribution))) return errorOfTypeMessage('Начальный взнос', contribution);
+  if (Number.isNaN(Number(amount))) return errorOfTypeMessage('Общая стоимость', amount);
   if (dateEnd == 'Invalid Date') return errorOfTypeMessage('date', date);
 
   let mortgageAmount = amount - contribution;
@@ -36,7 +35,5 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
   let totalMortgageAmount = (monthlyPayments * mortgageMonths).toFixed(2);
 
-  return totalMortgageAmount;
+  return Number(totalMortgageAmount);
 }
-
-console.log(calculateTotalMortgage(15, 0, 10000, '2025.07.2'))
