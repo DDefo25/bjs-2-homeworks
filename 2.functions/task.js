@@ -1,11 +1,22 @@
 // Задание 1
 function getArrayParams(arr) {
   let min, max, sum, avg;
+  sum = 0;
+  min = Infinity;
+  max = -Infinity;
 
-  // Ваш код
+  for (num of arr) {
+    if (num > max) max = num;
+    if (num < min) min = num;
+    sum += num;
+  }
 
-  return { min: min, max: max, avg: avg };
+  avg = Number((sum / arr.length).toFixed(2));
+
+  return {min, max, avg};
 }
+
+console.log(getArrayParams([-99, 99, 10]))
 
 // Задание 2
 function worker(arr) {
