@@ -16,27 +16,29 @@ function getArrayParams(arr) {
   return {min, max, avg};
 }
 
-console.log(getArrayParams([-99, 99, 10]))
-
 // Задание 2
 function worker(arr) {
-  let sum;
+  let sum = 0;
 
-  // Ваш код
+  for (num of arr) sum += num;
 
   return sum;
 }
 
 function makeWork(arrOfArr, func) {
-  let max;
+  let max = -Infinity;
 
-  // Ваш кода
-  // for ...
+  for (arr of arrOfArr) {
+    let sum = func(arr);
+    if (sum > max) max = sum;
+  }
   
   return max;
 }
 
 // Задание 3
 function worker2(arr) {
-  // Ваш код
+  let {min, max} = getArrayParams(arr);
+  let divMaxMin = Math.abs(max - min);
+  return divMaxMin;
 }
