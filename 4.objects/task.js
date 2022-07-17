@@ -11,23 +11,19 @@ Student.prototype.setSubject = function (subjectName) {
 Student.prototype.addMark = function (mark) {
   if(this.marks === undefined) {
     this.marks = [];
-    this.marks.push(mark);
-  } else {
-    this.marks.push(mark);
-  };
+  }
+  this.marks.push(mark);
 }
 
 Student.prototype.addMarks = function (...marks) {
   if(this.marks === undefined) {
     this.marks = [];
-    this.marks.push(...marks);
-  } else {
-    this.marks.push(...marks);
-  };
+  } 
+  this.marks.push(...marks);
 }
 
 Student.prototype.getAverage = function () {
-  return this.marks.reduce((sum, current) => { return sum + current }, 0) / this.marks.length;
+  return this.marks.reduce((sum, current) => sum + current, 0) / this.marks.length;
 }
 
 Student.prototype.exclude = function (reason) {
@@ -35,3 +31,9 @@ Student.prototype.exclude = function (reason) {
   delete this.marks;
   this.excluded = reason;
 }
+
+let a = new Student ("Anton", 'male', 23)
+a.addMark(2)
+a.addMarks(2,4,5)
+console.log(a.getAverage())
+console.log(a.marks)
