@@ -31,9 +31,3 @@ Student.prototype.exclude = function (reason) {
   delete this.marks;
   this.excluded = reason;
 }
-
-let a = new Student ("Anton", 'male', 23)
-a.addMark(2)
-a.addMarks(2,4,5)
-console.log(a.getAverage())
-console.log(a.marks)
