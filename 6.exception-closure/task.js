@@ -1,6 +1,8 @@
 function parseCount(value) {
     let valueIsNumber = Number.parseInt(value);
-    if (isNaN(valueIsNumber)) throw new Error('Невалидное значение');
+    if (isNaN(valueIsNumber)) {
+        throw new Error('Невалидное значение');
+    }
     return valueIsNumber;
 }
 
@@ -14,7 +16,9 @@ function validateCount(value) {
 
 class Triangle {
     constructor(a, b, c) {
-        if (a + b < c || b + c < a || c + a < b) throw new Error('Треугольник с такими сторонами не существует');
+        if (a + b < c || b + c < a || c + a < b) {
+            throw new Error('Треугольник с такими сторонами не существует');
+        }
         this.sides = [a, b, c];
     }
 
