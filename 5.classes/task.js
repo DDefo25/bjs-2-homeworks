@@ -82,3 +82,52 @@ class Library {
         } else return null;
     }
 }
+
+class Student {
+    constructor(name, gender, age) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+    
+    addMark(mark, subject) {
+        if (mark > 5 || mark < 1) {
+            return 'Ошибка, оценка должна быть числом от 1 до 5'
+        }
+
+        if (this.gradesList === undefined) {
+            this.gradesList = [];
+        }
+
+        let findResult = this.gradesList.find(subjectName => subjectName.subject === subject);
+
+        if (findResult === undefined) {
+            this.gradesList.push({
+                subject, 
+                marks: [mark]
+            })
+        } else {
+            findResult.marks.push(mark);
+        }
+    }
+
+    getAverageBySubject(subject) {
+        let findResult = this.gradesList.find(subjectName => subjectName.subject === subject);
+        if (findResult === undefined) return 'Несуществующий предмет'
+        return findResult.marks.reduce((sum, current) => sum + current, 0) / findResult.marks.length;
+    }
+
+    getAverage() {
+        let subjectSum = 0;
+        this.gradesList.forEach(subject => {
+            subjectSum += subject.marks.reduce((sum, current) => sum + current, 0) / subject.marks.length;
+        })
+        return subjectSum / this.gradesList.length;
+    }
+
+    
+    exclude(reason) {
+        delete this.gradesList;
+        this.excluded = reason;
+    }
+}
