@@ -24,43 +24,40 @@ function cachingDecoratorNew(func) {
 
 
 function debounceDecoratorNew(func, delay) {
-  let isFirst = false;
-  return function(...args) {
-    setTimeout(() => {
-      isFirst = false;
-    }, delay)
+  let timerId;
+  let isDebounce = false;
 
-    if (isFirst) {
-      setTimeout(() => {
-        isFirst = false;
-      }, delay)
-      return;
+  return function(...args) {
+    clearTimeout(timerId);
+    
+    if (isDebounce === false) {
+      func(...args);
+      isDebounce = true;
     }
 
-    func(...args);
-    isFirst = true;
+    timerId = setTimeout(() => {
+      isDebounce = false;
+    }, delay)
   }
 }
 
 function debounceDecorator2(func, delay) {
-  let isFirst = false;
+  let timerId;
+  let isDebounce = false;
   wrapper.count = 0;
 
   function wrapper(...args) {
     wrapper.count += 1;    
-    setTimeout(() => {
-      isFirst = false;
-    }, delay)
-
-    if (isFirst) {
-      setTimeout(() => {
-        isFirst = false;
-      }, delay)
-      return;
+    clearTimeout(timerId);
+    
+    if (isDebounce === false) {
+      func.call(this, ...args);
+      isDebounce = true;
     }
 
-    func(...args);
-    isFirst = true;
+    timerId = setTimeout(() => {
+      isDebounce = false;
+    }, delay)
   }
 
   return wrapper;
