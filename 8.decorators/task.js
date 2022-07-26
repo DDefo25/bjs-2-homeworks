@@ -42,6 +42,26 @@ function debounceDecoratorNew(func, delay) {
   }
 }
 
-function debounceDecorator2(func) {
-  // Ваш код
+function debounceDecorator2(func, delay) {
+  let isFirst = false;
+  wrapper.count = 0;
+
+  function wrapper(...args) {
+    wrapper.count += 1;    
+    setTimeout(() => {
+      isFirst = false;
+    }, delay)
+
+    if (isFirst) {
+      setTimeout(() => {
+        isFirst = false;
+      }, delay)
+      return;
+    }
+
+    func(...args);
+    isFirst = true;
+  }
+
+  return wrapper;
 }
