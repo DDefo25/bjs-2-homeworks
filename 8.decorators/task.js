@@ -25,19 +25,19 @@ function cachingDecoratorNew(func) {
 
 function debounceDecoratorNew(func, delay) {
   let timerId;
-  let isDebounce = false;
+  let isDebounce = false; //флаг ассинхронного вызова
 
   return function(...args) {
-    clearTimeout(timerId);
-    
     if (isDebounce === false) {
-      func(...args);
+      func(...args); //синхронный вызов
       isDebounce = true;
+    } else { //последующие вызовы с флагом isDebounce=true должны быть отложенными
+      clearTimeout(timerId); //обнуление таймера при каждом ассинхронном вызове
+      timerId = setTimeout(() => { 
+        func(...args);  //ассинхронный вызов
+        isDebounce = false; //флаг isDebounce возвращают в исходное значение для следующего синхронного вызова
+      }, delay)
     }
-
-    timerId = setTimeout(() => {
-      isDebounce = false;
-    }, delay)
   }
 }
 
@@ -47,17 +47,18 @@ function debounceDecorator2(func, delay) {
   wrapper.count = 0;
 
   function wrapper(...args) {
-    wrapper.count += 1;    
-    clearTimeout(timerId);
-    
-    if (isDebounce === false) {
-      func.call(this, ...args);
-      isDebounce = true;
-    }
+    wrapper.count += 1;
 
-    timerId = setTimeout(() => {
-      isDebounce = false;
-    }, delay)
+    if (isDebounce === false) {
+      func(...args);
+      isDebounce = true;
+    } else {
+      clearTimeout(timerId);
+      timerId = setTimeout(() => { 
+        func(...args);
+        isDebounce = false;
+      }, delay)
+    }
   }
 
   return wrapper;
